@@ -1,0 +1,14 @@
+---
+import ArticlesList from "../components/ArticlesList.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="Articles | 〇〇" description="Qiita・はてなブログで公開している技術記事の一覧">
+  <section class="section">
+    <h1 class="page-title">Articles</h1>
+    <p class="note">
+      Qiita・はてなブログで公開している技術記事へのリンクです。記事本文は各サービスでご覧ください。
+    </p>
+    <ArticlesList />
+  </section>
+</BaseLayout>

@@ -1,0 +1,14 @@
+---
+import ProjectRow from "../../components/ProjectRow.astro";
+import { projects } from "../../data/projects";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="Projects | 〇〇" description="学生エンジニアとして開発したプロジェクトの一覧">
+  <section class="section">
+    <h1 class="page-title">Projects</h1>
+    <div class="project-list">
+      {projects.map((project, index) => <ProjectRow project={project} index={index} />)}
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,17 @@
+---
+interface Props {
+  limit?: number;
+}
+
+const { limit } = Astro.props;
+---
+
+<div class="articles" data-articles data-limit={limit ?? undefined}>
+  <p class="note" data-articles-status>記事を読み込んでいます…</p>
+  <ul class="article-list" data-articles-items hidden></ul>
+</div>
+
+<script>
+  import { mountAllArticles } from "../scripts/articles";
+  mountAllArticles();
+</script>

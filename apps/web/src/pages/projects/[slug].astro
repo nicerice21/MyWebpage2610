@@ -1,0 +1,121 @@
+---
+import SectionHeading from "../../components/SectionHeading.astro";
+import { projects } from "../../data/projects";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+export function getStaticPaths() {
+  return projects.map((project) => ({
+    params: { slug: project.slug },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+const index = projects.findIndex((item) => item.slug === project.slug);
+const number = String(index + 1).padStart(2, "0");
+---
+
+<BaseLayout title={`${project.title} | 〇〇`} description={project.subtitle}>
+  <article class="project-detail">
+    <header class="project-detail-header">
+      <p class="note project-detail-kicker">PROJECT {number}</p>
+      <h1 class="project-detail-title">{project.title}</h1>
+      <p class="project-detail-subtitle">{project.subtitle}</p>
+      <dl class="project-meta">
+        <dt class="note">開発時期</dt>
+        <dd>{project.period}</dd>
+        <dt class="note">担当</dt>
+        <dd>{project.role}</dd>
+        <dt class="note">関連リンク</dt>
+        <dd>
+          <ul class="project-links">
+            {
+              project.links.map((link) => (
+                <li>
+                  <a href={link.url} rel="external noopener">
+                    {link.label}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </dd>
+      </dl>
+      {
+        project.image && (
+          <figure class="figure">
+            <img src={project.image.url} alt={project.image.alt} loading="lazy" />
+            <figcaption class="note">Fig. 01 — {project.image.caption}</figcaption>
+          </figure>
+        )
+      }
+    </header>
+
+    <section class="detail-section" aria-labelledby="overview-title">
+      <SectionHeading id="overview-title" title="Overview" />
+      <p>{project.overview}</p>
+    </section>
+
+    <section class="detail-section" aria-labelledby="background-title">
+      <SectionHeading id="background-title" title="Background" />
+      <p>{project.background}</p>
+    </section>
+
+    <section class="detail-section" aria-labelledby="solution-title">
+      <SectionHeading id="solution-title" title="Solution" />
+      <p>{project.solution}</p>
+      <ul class="detail-list">
+        {project.features.map((feature) => <li>{feature}</li>)}
+      </ul>
+    </section>
+
+    <section class="detail-section" aria-labelledby="tech-title">
+      <SectionHeading id="tech-title" title="Tech Stack" />
+      <dl class="tech-list">
+        {
+          project.techStack.map((tech) => (
+            <div class="tech-item">
+              <dt class="tech-name">{tech.name}</dt>
+              <dd>{tech.reason}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </section>
+
+    <section class="detail-section" aria-labelledby="development-title">
+      <SectionHeading id="development-title" title="Development" />
+      <p>{project.development}</p>
+    </section>
+
+    <section class="detail-section" aria-labelledby="challenges-title">
+      <SectionHeading id="challenges-title" title="Challenges" />
+      {
+        project.challenges.map((challenge) => (
+          <div class="challenge">
+            <dl class="challenge-flow">
+              <dt>課題</dt>
+              <dd>{challenge.problem}</dd>
+              <dt>取り組み</dt>
+              <dd>{challenge.approach}</dd>
+              <dt>結果</dt>
+              <dd>{challenge.result}</dd>
+            </dl>
+          </div>
+        ))
+      }
+    </section>
+
+    <section class="detail-section" aria-labelledby="result-title">
+      <SectionHeading id="result-title" title="Result" />
+      <p>{project.result}</p>
+    </section>
+
+    <section class="detail-section" aria-labelledby="reflection-title">
+      <SectionHeading id="reflection-title" title="Reflection" />
+      <p>{project.reflection}</p>
+    </section>
+
+    <a class="back-link" href="/projects/">← Projects一覧へ戻る</a>
+  </article>
+</BaseLayout>

@@ -1,0 +1,8 @@
+name = "mywebpage-api"
+main = "src/index.ts"
+compatibility_date = "2025-10-01"
+
+[vars]
+QIITA_USER = ""
+HATENA_BLOG_URL = ""
+ALLOWED_ORIGINS = "http://localhost:4321"

@@ -1,0 +1,25 @@
+---
+const navItems = [
+  { href: "/about/", label: "About" },
+  { href: "/projects/", label: "Projects" },
+  { href: "/articles/", label: "Articles" },
+  { href: "/contact/", label: "Contact" },
+];
+---
+
+<header class="site-header">
+  <div class="container site-header-inner">
+    <a class="site-brand" href="/">〇〇</a>
+    <nav aria-label="サイト内ナビゲーション">
+      <ul class="site-nav">
+        {
+          navItems.map((item) => (
+            <li>
+              <a href={item.href}>{item.label}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </div>
+</header>

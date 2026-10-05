@@ -1,0 +1,24 @@
+---
+import type { Project } from "../data/projects";
+
+interface Props {
+  project: Project;
+  index: number;
+}
+
+const { project, index } = Astro.props;
+const number = String(index + 1).padStart(2, "0");
+const tech = project.techStack.map((item) => item.name).join(" / ");
+---
+
+<article class="project-row">
+  <div class="project-row-number note">{number}</div>
+  <div class="project-row-body">
+    <h3 class="project-row-title">
+      <a href={`/projects/${project.slug}/`}>{project.title}</a>
+    </h3>
+    <p class="project-row-subtitle">{project.subtitle}</p>
+    <p class="project-row-meta note">{tech} — {project.year}</p>
+  </div>
+  <a class="project-row-link note" href={`/projects/${project.slug}/`}>View project →</a>
+</article>

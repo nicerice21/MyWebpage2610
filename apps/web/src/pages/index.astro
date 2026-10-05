@@ -1,0 +1,94 @@
+---
+import ArticlesList from "../components/ArticlesList.astro";
+import ProjectRow from "../components/ProjectRow.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import { projects } from "../data/projects";
+import { activities, contacts, profile, skills } from "../data/site";
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const featuredProjects = projects.slice(0, 4);
+const github = contacts.find((contact) => contact.label === "GitHub")?.url ?? "/";
+---
+
+<BaseLayout title="〇〇 | 学生エンジニアのポートフォリオ">
+  <section class="hero" aria-labelledby="hero-title">
+    <p class="note hero-kicker">PORTFOLIO / {new Date().getFullYear()}</p>
+    <h1 id="hero-title" class="hero-title">{profile.role}</h1>
+    <p class="hero-copy">{profile.intro}</p>
+    <p class="hero-links">
+      <a class="button" href="/projects/">Projectsを見る</a>
+      <a class="button button-ghost" href={github} rel="external noopener">GitHub</a>
+    </p>
+    <p class="note hero-note">↳ interested in<br />web / cloud / design</p>
+  </section>
+
+  <section class="section" aria-labelledby="about-title">
+    <SectionHeading id="about-title" title="About" />
+    <div class="paper">
+      <p class="profile-affiliation">{profile.affiliation}</p>
+      <p>{profile.bio[0]}</p>
+      <p class="note">↳ interested in: {profile.interests.join(" / ")}</p>
+      <p><a href="/about/">詳しく見る →</a></p>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="skills-title">
+    <SectionHeading id="skills-title" title="Skills" />
+    <dl class="skills-list">
+      {
+        skills.map((skill) => (
+          <div class="skills-item">
+            <dt>{skill.area}</dt>
+            <dd class="note">{skill.detail}</dd>
+          </div>
+        ))
+      }
+    </dl>
+  </section>
+
+  <section class="section" aria-labelledby="projects-title">
+    <SectionHeading id="projects-title" title="Projects" />
+    <div class="project-list">
+      {featuredProjects.map((project, index) => <ProjectRow project={project} index={index} />)}
+    </div>
+    <p class="section-more"><a href="/projects/">すべてのプロジェクトを見る →</a></p>
+  </section>
+
+  <section class="section" aria-labelledby="articles-title">
+    <SectionHeading id="articles-title" title="Articles" />
+    <p class="note">外部サービスで公開している技術記事</p>
+    <ArticlesList limit={5} />
+    <p class="section-more"><a href="/articles/">すべての記事を見る →</a></p>
+  </section>
+
+  <section class="section" aria-labelledby="activity-title">
+    <SectionHeading id="activity-title" title="Activity" />
+    <ol class="timeline">
+      {
+        activities.map((activity) => (
+          <li class="timeline-item">
+            <span class="note">{activity.year}</span>
+            <span>{activity.title}</span>
+            <span class="note">{activity.note}</span>
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+
+  <section class="section" aria-labelledby="contact-title">
+    <SectionHeading id="contact-title" title="Contact" />
+    <p>学内プロジェクトや共同開発などの相談は、以下から連絡してください。</p>
+    <ul class="contact-links">
+      {
+        contacts.map((contact) => (
+          <li>
+            <a href={contact.url} rel="external noopener">
+              {contact.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+</BaseLayout>

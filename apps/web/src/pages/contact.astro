@@ -1,0 +1,23 @@
+---
+import { contacts, profile } from "../data/site";
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="Contact | 〇〇" description="ポートフォリオサイトの連絡先">
+  <section class="section">
+    <h1 class="page-title">Contact</h1>
+    <p>{profile.role}として、学内プロジェクトや共同開発に取り組んでいます。</p>
+    <p>お気軽に以下の連絡先からご連絡ください。</p>
+    <ul class="contact-links">
+      {
+        contacts.map((contact) => (
+          <li>
+            <a href={contact.url} rel="external noopener">
+              {contact.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+</BaseLayout>

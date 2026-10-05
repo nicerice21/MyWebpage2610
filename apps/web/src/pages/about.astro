@@ -1,0 +1,49 @@
+---
+import SectionHeading from "../components/SectionHeading.astro";
+import { profile, skills } from "../data/site";
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="About | 〇〇" description={`${profile.affiliation}の学生エンジニアの紹介`}>
+  <section class="section">
+    <h1 class="page-title">About</h1>
+    <div class="paper">
+      <p class="profile-affiliation">{profile.affiliation}</p>
+      <p>{profile.intro}</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <SectionHeading title="経歴" />
+    <ol class="timeline">
+      {
+        profile.bio.map((item) => (
+          <li class="timeline-item">
+            <span>{item}</span>
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+
+  <section class="section">
+    <SectionHeading title="興味分野" />
+    <ul class="plain-list">
+      {profile.interests.map((interest) => <li>{interest}</li>)}
+    </ul>
+  </section>
+
+  <section class="section">
+    <SectionHeading title="Skills" />
+    <dl class="skills-list">
+      {
+        skills.map((skill) => (
+          <div class="skills-item">
+            <dt>{skill.area}</dt>
+            <dd class="note">{skill.detail}</dd>
+          </div>
+        ))
+      }
+    </dl>
+  </section>
+</BaseLayout>
